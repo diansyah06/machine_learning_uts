@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistem Prediksi Kualitas Udara AI</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-wind"></i>
+          <h1>Sistem Prediksi Kualitas Udara AI</h1>
+        </div>
+        <p class="subtitle">Prediksi Real-Time PM2.5 Berbasis Deep Learning dan Data OpenAQ</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="container">
+      <!-- Prediction Form Section -->
+      <section class="prediction-section">
+        <div class="form-container">
+          <div class="form-header">
+            <h2>Mulai Prediksi Kualitas Udara</h2>
+            <p>Pilih kota untuk mendapatkan analisis kualitas udara berbasis AI</p>
+          </div>
+          
+          <form id="predict-form" class="prediction-form">
+            <div class="input-group">
+              <label for="region">
+                <i class="fas fa-map-marker-alt"></i>
+                Pilih Wilayah
+              </label>
+              <select id="region" name="region" required>
+                <option value="">Pilih wilayah...</option>
+                <option value="medan">Medan</option>
+                <option value="depok">Depok</option>
+                <option value="bogorselatan">Bogor Selatan</option>
+                <option value="dmalldepok">DMall Depok</option>
+                <option value="kopernik">Kopernik</option>
+                <option value="ubud">Ubud</option>
+              </select>
+            </div>
+
+            
+            <button type="submit" id="predict-btn" class="predict-btn">
+              <span class="btn-text">
+                <i class="fas fa-brain"></i>
+                Ambil Data & Prediksi
+              </span>
+              <div class="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+                <span>Memproses dengan AI...</span>
+              </div>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Results Section -->
+      <section class="results-section" id="results-section" style="display: none;">
+        <div class="results-container">
+          <!-- AI Prediction Card -->
+          <div class="result-card ai-prediction">
+            <div class="card-header">
+              <h3>
+                <i class="fas fa-robot"></i>
+                Prediksi AI (Ensemble Model)
+              </h3>
+              <div class="location-info" id="location-info">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="result-city">-</span>
+              </div>
+            </div>
+            <div class="card-content">
+              <div class="metric">
+                <div class="metric-value" id="predicted-pm25">-</div>
+                <div class="metric-unit">µg/m³</div>
+                <div class="metric-label">PM2.5 Prediksi</div>
+              </div>
+              <div class="metric-category" id="predicted-category">
+                <span class="category-badge">-</span>
+              </div>
+              <div class="trend-info" id="trend-info">
+                <i class="fas fa-arrow-up"></i>
+                <span>Trend: -</span>
+              </div>
+              <div class="forecast-info">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Prakiraan 1 hari ke depan</span>
+              </div>
+            </div>
+
+            <!-- Analysis Section -->
+            <div class="analysis-section" id="analysis-section" style="display: none;">
+              <div class="analysis-content">
+                <h4>
+                  <i class="fas fa-chart-bar"></i>
+                  Analisis Kualitas Prediksi
+                </h4>
+                <div class="analysis-grid">
+                  <div class="analysis-item">
+                    <span class="analysis-label">Aktual Terakhir:</span>
+                    <span class="analysis-value" id="actual-last">-</span>
+                  </div>
+                  <div class="analysis-item">
+                    <span class="analysis-label">Rata-rata Prediksi:</span>
+                    <span class="analysis-value" id="pred-avg">-</span>
+                  </div>
+                  <div class="analysis-item">
+                    <span class="analysis-label">Rentang Prediksi:</span>
+                    <span class="analysis-value" id="pred-range">-</span>
+                  </div>
+                  <div class="analysis-item">
+                    <span class="analysis-label">Perubahan Tren:</span>
+                    <span class="analysis-value" id="trend-delta">-</span>
+                  </div>
+                  <div class="analysis-item">
+                    <span class="analysis-label">Arah Tren:</span>
+                    <span class="analysis-value" id="trend-direction">-</span>
+                  </div>
+                  <div class="analysis-item">
+                    <span class="analysis-label">Kategori Kualitas:</span>
+                    <span class="analysis-value" id="quality-category">-</span>
+                  </div>
+                  <div class="analysis-item">
+                    <span class="analysis-label">% Perubahan:</span>
+                    <span class="analysis-value" id="change-percent">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Error Section -->
+      <section class="error-section" id="error-section" style="display: none;">
+        <div class="error-container">
+          <div class="error-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <h3>Terjadi Kesalahan</h3>
+          <p id="error-message">-</p>
+          <p id="error-suggestions" class="error-suggestions"></p>
+          <button class="retry-btn" onclick="resetForm()">
+            <i class="fas fa-redo"></i>
+            Coba Lagi
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 OFFSIDE — Sistem Prediksi Kualitas Udara Berbasis AI Deep Learning Ensemble</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
