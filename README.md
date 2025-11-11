@@ -234,10 +234,7 @@ Distributed under the ISC License. See `LICENSE` for more information.
 
 ## 👨‍💻 Author
 
-**Saint Ripen Tumanggor**
-- Email: [your-email@example.com]
-- LinkedIn: [your-linkedin]
-- GitHub: [your-github]
+**OFFSIDE**
 
 ## 🙏 Acknowledgments
 
