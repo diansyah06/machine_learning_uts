@@ -10,8 +10,8 @@ const execAsync = util.promisify(exec);
 
 const init = async () => {
   const server = Hapi.server({
-    port: 5623, // ✅ ganti dari 3000 ke 5623
-    host: 'localhost',
+    port: process.env.PORT || 5623, // Ambil port dari Render, atau 5623 jika lokal
+    host: '0.0.0.0', // Dengarkan di semua interface, BUKAN localhost
     routes: {
       files: {
         relativeTo: Path.join(__dirname, 'public')
