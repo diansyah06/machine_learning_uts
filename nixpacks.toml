@@ -1,11 +1,17 @@
-# nixpacks.toml
-# Memberitahu Railway untuk menginstal Node.js DAN Python
+# nixpacks.toml - Konfigurasi Lengkap
+
+# 1. Tentukan provider (ini akan menginstal node dan python)
 providers = ["nodejs", "python"]
 
 [phases.setup]
-# Instal library sistem yang dibutuhkan oleh h5py
+# 2. Instal library sistem untuk h5py
 aptPkgs = ["libhdf5-dev", "pkg-config"]
 
 [phases.install]
-# Menjalankan kedua perintah instalasi
+# 3. Jalankan kedua perintah instalasi
 cmds = ["npm install", "pip install -r requirements.txt"]
+
+[start]
+# 4. Tentukan perintah start DI DALAM FILE INI
+#    Kita gunakan "npm start" yang akan merujuk ke package.json Anda
+cmd = "npm start"
