@@ -10,23 +10,21 @@ const execAsync = util.promisify(exec);
 
 const init = async () => {
   const server = Hapi.server({
-    port: process.env.PORT || 5623, // Ambil port dari Render, atau 5623 jika lokal
-    host: '0.0.0.0', // Dengarkan di semua interface, BUKAN localhost
+    port: process.env.PORT || 5623, 
+    host: '0.0.0.0', 
     routes: {
       files: {
         relativeTo: Path.join(__dirname, 'public')
       },
       payload: {
-        maxBytes: 10 * 1024 * 1024, // 10MB max file size
+        maxBytes: 10 * 1024 * 1024, 
         multipart: true
       }
     }
   });
-
-  // Load plugin Inert untuk serving file statis
   await server.register(Inert);
 
-  // Route halaman utama
+
   server.route({
     method: 'GET',
     path: '/',
@@ -35,7 +33,6 @@ const init = async () => {
     }
   });
 
-  // Route statis (CSS, JS, dll)
   server.route({
     method: 'GET',
     path: '/{param*}',
@@ -47,7 +44,7 @@ const init = async () => {
     }
   });
 
-  // Route API prediksi
+ 
   server.route(require('./routes/predict'));
 
   await server.start();

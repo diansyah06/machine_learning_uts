@@ -1,0 +1,11 @@
+# nixpacks.toml
+# Memberitahu Railway untuk menginstal Node.js dan Python
+providers = ["nodejs", "python"]
+
+[phases.install]
+# Menjalankan kedua perintah instalasi
+cmds = ["npm install", "pip install -r requirements.txt"]
+
+[start]
+# Menentukan perintah start dengan jelas
+cmd = "node server.js"
