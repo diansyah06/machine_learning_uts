@@ -1,6 +1,16 @@
-# nixpacks.toml
-# HANYA untuk memberitahu Railway agar menginstal bahasa dan lib sistem
+# nixpacks.toml - Konfigurasi Lengkap
+
+# 1. Tentukan provider (ini akan menginstal node dan python)
 providers = ["nodejs", "python"]
 
 [phases.setup]
+# 2. Instal library sistem untuk h5py
 aptPkgs = ["libhdf5-dev", "pkg-config"]
+
+[phases.install]
+# 3. Jalankan kedua perintah instalasi
+cmds = ["npm install", "pip install -r requirements.txt"]
+
+[start]
+# 4. Tentukan perintah start DI DALAM FILE INI
+cmd = "npm start"
