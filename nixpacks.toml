@@ -3,13 +3,9 @@
 providers = ["nodejs", "python"]
 
 [phases.setup]
-# Instal library sistem yang dibutuhkan oleh h5py (error selanjutnya)
+# Instal library sistem yang dibutuhkan oleh h5py
 aptPkgs = ["libhdf5-dev", "pkg-config"]
 
 [phases.install]
 # Menjalankan kedua perintah instalasi
 cmds = ["npm install", "pip install -r requirements.txt"]
-
-[start]
-# Menentukan perintah start dengan jelas
-cmd = "node server.js"
