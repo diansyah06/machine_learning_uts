@@ -1,6 +1,10 @@
 # nixpacks.toml
-# Memberitahu Railway untuk menginstal Node.js dan Python
+# Memberitahu Railway untuk menginstal Node.js DAN Python
 providers = ["nodejs", "python"]
+
+[phases.setup]
+# Instal library sistem yang dibutuhkan oleh h5py (error selanjutnya)
+aptPkgs = ["libhdf5-dev", "pkg-config"]
 
 [phases.install]
 # Menjalankan kedua perintah instalasi
